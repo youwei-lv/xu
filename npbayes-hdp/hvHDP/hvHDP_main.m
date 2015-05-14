@@ -22,6 +22,7 @@ end
 
 [~,KK] = max(KK_hist);
 
+KK = 50;
 aa = 0.1*KK;
 fm = fm_docs_init(KK,aa,Multinomial(hh0),datass,datass_zz);
 

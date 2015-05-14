@@ -30,7 +30,7 @@ classdef Multinomial < handle
             end
             qq.dd = hh.dd;
             qq.aa = hh.aa/hh.dd;
-            qq.mi = sparse(hh.dd,1);
+            qq.mi = zeros(hh.dd,1);
             qq.mm = 0;
             qq.nn = 0;
             qq.Z0 = 0;
@@ -42,20 +42,20 @@ classdef Multinomial < handle
             % xx can either be a sparse dx1 vector of counts,
             % or a scalar indicating value of a single draw.
             
-            if issparse(xx)
-                [xii, xjj, xmi] = find(xx);
-                xmm    = sum(xmi);
-                qq.nn = qq.nn + 1;
-                qq.mi = qq.mi + xx;
-                qq.mm = qq.mm + xmm;
-                qq.Z0 = qq.Z0 + gammaln(xmm+1) - sum(gammaln(xmi+1));
-            elseif isscalar(xx)
+%             if issparse(xx)
+%                 [xii, xjj, xmi] = find(xx);
+%                 xmm    = sum(xmi);
+%                 qq.nn = qq.nn + 1;
+%                 qq.mi = qq.mi + xx;
+%                 qq.mm = qq.mm + xmm;
+%                 qq.Z0 = qq.Z0 + gammaln(xmm+1) - sum(gammaln(xmi+1));
+%             elseif isscalar(xx)
                 qq.nn     = qq.nn + 1;
                 qq.mi(xx) = qq.mi(xx) + 1;
                 qq.mm     = qq.mm + 1;
-            else
-                error('data item xx type unknown.');
-            end
+%             else
+%                 error('data item xx type unknown.');
+%             end
         end
         
         function qq = delitem(qq,xx)
@@ -64,38 +64,38 @@ classdef Multinomial < handle
             % xx can either be a sparse dx1 vector of counts,
             % or a scalar indicating value of a single draw.
             
-            if issparse(xx)
-                [xii, xjj, xmi] = find(xx);
-                xmm    = sum(xmi);
-                qq.nn = qq.nn - 1;
-                qq.mi = qq.mi - xx;
-                qq.mm = qq.mm - xmm;
-                qq.Z0 = qq.Z0 - gammaln(xmm+1) + sum(gammaln(xmi+1));
-            elseif isscalar(xx)
+%             if issparse(xx)
+%                 [xii, xjj, xmi] = find(xx);
+%                 xmm    = sum(xmi);
+%                 qq.nn = qq.nn - 1;
+%                 qq.mi = qq.mi - xx;
+%                 qq.mm = qq.mm - xmm;
+%                 qq.Z0 = qq.Z0 - gammaln(xmm+1) + sum(gammaln(xmi+1));
+%             elseif isscalar(xx)
                 qq.nn     = qq.nn - 1;
                 qq.mi(xx) = qq.mi(xx) - 1;
                 qq.mm     = qq.mm - 1;
-            else
-                error('data item xx type unknown.');
-            end
+%             else
+%                 error('data item xx type unknown.');
+%             end
         end
         
         function ll = logpredictive(qq,xx)
             % ll = logpredictive(qq,xx)
             % log predictive probability of xx given other data items in the component
             % log p(xx|x_1,...,x_n)
-            
-            if issparse(xx)
-                [xii, xjj, xmi] = find(xx);
-                xmm = sum(xmi);
-                ll = gammaln(xmm+1) - sum(gammaln(xmi+1)) ...
-                    + gammaln(qq.aa*qq.dd+qq.mm) - gammaln(qq.aa*qq.dd+qq.mm+xmm) ...
-                    + full(sum(gammaln(qq.aa+qq.mi+xx) - gammaln(qq.aa+qq.mi)));
-            elseif isscalar(xx)
+%             
+%             if issparse(xx)
+%                 [xii, xjj, xmi] = find(xx);
+%                 xmm = sum(xmi);
+%                 ll = gammaln(xmm+1) - sum(gammaln(xmi+1)) ...
+%                     + gammaln(qq.aa*qq.dd+qq.mm) - gammaln(qq.aa*qq.dd+qq.mm+xmm) ...
+%                     + full(sum(gammaln(qq.aa+qq.mi+xx) - gammaln(qq.aa+qq.mi)));
+%             elseif isscalar(xx)
                 ll = log((qq.aa+qq.mi(xx))/(qq.aa*qq.dd+qq.mm));
-            else
-                error('data item xx type unknown.');
-            end
+%             else
+%                 error('data item xx type unknown.');
+%             end
         end
         
         function pi = mean(qq)

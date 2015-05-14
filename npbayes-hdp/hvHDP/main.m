@@ -7,12 +7,12 @@ vobfname = 'data/abstracts_pairs.txt';
 %datass = docs(1:100);
 datass = docs;
 
-initnumclass = 10;
+initnumclass = 50;
 eta = 0.1;
 gammaa1 = 1;
-gammab1 = 0.1;
+gammab1 = 1;
 gammaa2 = 1;
-gammab2 = 0.1;
+gammab2 = 1;
 aa_0 = 1;
 aa_1 = 1;
 

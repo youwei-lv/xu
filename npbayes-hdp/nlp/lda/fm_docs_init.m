@@ -29,7 +29,7 @@ for ii = 1:fm.NN
     doc = fm.docs{ii};
     for jj = 1:length(doc.xx)
       kk = doc.zz(jj);
-      additem(fm.qq{kk},doc.xx(jj));
+      additem(fm.qq{kk},doc.xx{jj});
       doc.nn(kk) = doc.nn(kk) + 1;
     end
     fm.docs{ii} = doc;
