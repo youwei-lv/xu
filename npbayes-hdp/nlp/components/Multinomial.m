@@ -92,7 +92,7 @@ classdef Multinomial < handle
 %                     + gammaln(qq.aa*qq.dd+qq.mm) - gammaln(qq.aa*qq.dd+qq.mm+xmm) ...
 %                     + full(sum(gammaln(qq.aa+qq.mi+xx) - gammaln(qq.aa+qq.mi)));
 %             elseif isscalar(xx)
-                ll = log((qq.aa+qq.mi(xx))/(qq.aa*qq.dd+qq.mm));
+                ll = log((qq.aa+qq.mi(xx)))-log(qq.aa*qq.dd+qq.mm);
 %             else
 %                 error('data item xx type unknown.');
 %             end
