@@ -24,7 +24,7 @@ datass_zz = cellfun(@(data)randi(initnumclass,1,length(data)),datass,'UniformOut
 
 KK = 50;
 aa = 0.1*KK;
-fm = lda_init(KK,aa,hh0.dd,datass,datass_zz);
+fm = lda_init(KK,aa,hh0.dd,hh0.aa/hh0.dd,datass,datass_zz);
 
 dirName = ['data/AbstractAnalysisResult_', datestr(now, 30)];
 if ~exist(dirName,'dir')

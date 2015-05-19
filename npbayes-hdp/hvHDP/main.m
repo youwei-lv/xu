@@ -7,7 +7,7 @@ vobfname = 'data/abstracts_pairs.txt';
 %datass = docs(1:100);
 datass = docs;
 
-initnumclass = 50;
+initnumclass = 20;
 eta = 0.1;
 gammaa1 = 1;
 gammab1 = 1;
@@ -19,7 +19,7 @@ aa_1 = 1;
 hh0.aa = eta*vobsize;
 hh0.dd = vobsize;
 
-numiter = 1000;
+numiter = 200;
 
 [hvHDPs] = hvHDP_main(datass, initnumclass, hh0, aa_0, aa_1, gammaa1, gammab1, gammaa2, gammab2, numiter);
 

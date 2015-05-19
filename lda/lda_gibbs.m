@@ -5,6 +5,10 @@ KK = fm.KK;
 NN = fm.NN;
 aa = fm.aa;
 qq = fm.qq;
+mm = qq.mm;
+sc = qq.sc;
+eta = qq.eta;
+vobsize = size(mm,2);
 
 docs = fm.docs;
 
@@ -22,11 +26,12 @@ for iter = 1:numiter
             % remove data item xx{ii} from component qq{kk}
             kk = doc.zz(ii);
             nn(kk) = nn(kk) - 1;
-            qq(kk,xx{ii}) = qq(kk,xx{ii}) - 1;
+            mm(kk,xx{ii}) = mm(kk,xx{ii}) - 1;
+            sc(kk) = sc(kk) - 1;
             
             % compute probabilities pp(kk) of each component kk
             pp = log(aa/KK + nn);
-            pp = pp + log( : , xx{ii})';
+            pp = pp + log(mm(:,xx{ii})+eta)' - log(sc+eta*vobsize);
             pp = exp(pp - max(pp));
             pp = pp / sum(pp);
             
@@ -37,7 +42,8 @@ for iter = 1:numiter
             % add data item xx{ii} back into model (component qq{kk})
             zz(ii) = kk;
             nn(kk) = nn(kk) + 1;
-            qq(kk,xx{ii}) = qq(kk,xx{ii}) + 1;
+            mm(kk,xx{ii}) = mm(kk,xx{ii}) + 1;
+            sc(kk) = sc(kk) + 1;
         end
         doc.nn = nn;
         doc.zz = zz;
@@ -48,6 +54,8 @@ for iter = 1:numiter
 end
 
 fm.docs = docs;
+qq.mm = mm;
+qq.sc = sc;
 fm.qq = qq;
 
 end
