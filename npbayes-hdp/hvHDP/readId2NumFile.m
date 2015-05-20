@@ -17,7 +17,8 @@ while ischar(tline)
     if vobsize < max(d)
         vobsize = max(d);
     end
-    docs{length(docs)+1} = num2cell(d);
+    %docs{length(docs)+1} = num2cell(d);
+    docs{length(docs)+1} = d;
     tline = fgetl(fid);
 end
 fclose(fid);

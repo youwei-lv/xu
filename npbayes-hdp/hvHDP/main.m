@@ -1,6 +1,7 @@
 %function [hvHDPs]= main
 fname = 'data/abstracts.txt';
 vobfname = 'data/abstracts_pairs.txt';
+[vob] = readVobFile(vobfname);
 
 [docs,vobsize] = readId2NumFile(fname);
 

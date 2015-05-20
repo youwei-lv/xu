@@ -5,9 +5,6 @@ function [vob] = readVobFile(fname)
     while ischar(tline)
         ind = sscanf(tline, '%d:');
         ind = ind(1);
-        if ind == 81
-            fprintf(1,'......');
-        end
         if ind>0
             fprintf(1,'%s \n',tline);
             a = strfind(tline,':')+1;

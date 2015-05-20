@@ -11,13 +11,20 @@ hdp = hdp_init(func,0,1,hh,alphaa,alphab);
 
 
 hdp = hdp_setdata(hdp,trainindex,trainss);
-hdp = hdp_setdata(hdp,testindex,testss);
+hdp = hdp_setdata(hdp,testindex,testss); % added data is set to be held out by default
 
-hdp = dp_activate(hdp,[1 trainindex],numclass);
+hdp = dp_activate(hdp,[1 trainindex],numclass); % activate the samplings for 
+                                                % dps indexed by [1 trainindx]
 
+% perform posterior sampling for activated dps, and store the state of each
+% hdp during the iteration
 [sample hdp lik] = hdp_posterior(hdp,trainnumburnin,trainnumsample,...
                    trainnumspace,trainconparam,1,0,fid);
+% freeze the dps indexed by trainindex
 hdp = dp_freeze(hdp,trainindex); 
 
+% when performing hdp_predict, the trainindexed dps will be freezed, and
+% testindexed dps will be activated and the likelihood will be computed
+% testnumsample times after testnumburnin
 predlik = hdp_predict(hdp,sample,trainindex,testindex,...
           testnumburnin,testnumsample,testconparam,0,fid);
