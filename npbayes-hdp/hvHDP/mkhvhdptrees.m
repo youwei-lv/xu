@@ -8,7 +8,7 @@ for i=1:length(treeResult)
     docTopicMatrix = treeResult{i}.docTopicMatrix;
     numdoc = size(docTopicMatrix,1);
     
-    topicOffset = docOffset + size(docTopicMatrix,2);
+    topicOffset = docOffset + size(docTopicMatrix,1);
     for dd = 1:numdoc
         dkk = find(docTopicMatrix(dd,:)>0.01);
         for jj = 1:length(dkk)
